@@ -7,6 +7,7 @@ namespace messageBoard.Models.ViewModel
 {
     public class GuestbookView
     {
+        public string Search { get; set; }
         public List<Guestbooks> DataList { get; set; }
     }
 }

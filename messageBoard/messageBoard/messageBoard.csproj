@@ -159,6 +159,9 @@
     <Compile Include="Models\Guestbooks.cs">
       <DependentUpon>MyGuestbook.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Members.cs">
+      <DependentUpon>MyGuestbook.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyGuestbook.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -234,6 +237,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Guestbook\Index.cshtml" />
     <Content Include="Views\Guestbook\CreateMessage.cshtml" />
+    <Content Include="Views\Guestbook\EditMessage.cshtml" />
+    <Content Include="Views\Guestbook\Reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

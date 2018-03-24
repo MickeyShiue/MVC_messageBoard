@@ -26,5 +26,6 @@ namespace messageBoard.Models
         }
     
         public virtual DbSet<Guestbooks> Guestbooks { get; set; }
+        public virtual DbSet<Members> Members { get; set; }
     }
 }

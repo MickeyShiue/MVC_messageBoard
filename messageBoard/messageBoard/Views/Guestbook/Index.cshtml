@@ -10,6 +10,24 @@
     @Html.Action("CreateMessage")
 </div>
 <hr />
+
+@using (Html.BeginForm("Index","Guestbook",FormMethod.Get))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(p=>p.Search)
+            </td>
+            <td>
+                @Html.TextBoxFor(p=>p.Search)
+            </td>
+            <td>
+                <input type="submit" value="搜尋" />
+            </td>
+        </tr>
+    </table>
+}
+<hr />
 <table>
     @if (!Model.DataList.Count.Equals(0))
     {
@@ -54,6 +72,12 @@
                 </td>
                 <td colspan="2">
                     @item.ReplyTime
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ActionLink("修改留言", "EditMessage", new { id = item.Id })
+                    @Html.ActionLink("回覆留言", "Reply", new { id = item.Id })
                 </td>
             </tr>
         }

@@ -20,5 +20,8 @@ namespace messageBoard.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public string Reply { get; set; }
         public Nullable<System.DateTime> ReplyTime { get; set; }
+        public string Account { get; set; }
+    
+        public virtual Members Members { get; set; }
     }
 }

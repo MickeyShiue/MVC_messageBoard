@@ -155,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GuestbookMetadata.cs" />
     <Compile Include="Models\Guestbooks.cs">
       <DependentUpon>MyGuestbook.tt</DependentUpon>
     </Compile>

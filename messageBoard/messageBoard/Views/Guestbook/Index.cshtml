@@ -6,10 +6,10 @@
 
 <h2>Index</h2>
 
-<div>
+<div align="left">
     @Html.Action("CreateMessage")
 </div>
-
+<hr />
 <table>
     @if (!Model.DataList.Count.Equals(0))
     {
@@ -68,9 +68,6 @@
     }
 </table>
 
-<div>
-    @Html.ActionLink("回首頁", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

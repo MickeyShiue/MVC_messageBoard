@@ -1,0 +1,77 @@
+﻿@model messageBoard.Models.ViewModel.GuestbookView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    @Html.Action("CreateMessage")
+</div>
+
+<table>
+    @if (!Model.DataList.Count.Equals(0))
+    {
+        foreach (var item in Model.DataList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(p => p.DataList[0].Name)：
+                </td>
+                <td colspan="3">
+                    @item.Name
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(p => p.DataList[0].Content)：
+                </td>
+                <td colspan="3">
+                    @item.Content
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(p => p.DataList[0].CreateTime)：
+                </td>
+                <td colspan="3">
+                    @item.CreateTime
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(p => p.DataList[0].Reply)：
+                </td>
+                <td colspan="3">
+                    @item.Reply
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(p => p.DataList[0].ReplyTime)：
+                </td>
+                <td colspan="2">
+                    @item.ReplyTime
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="4">
+                資料庫內無資料
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("回首頁", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

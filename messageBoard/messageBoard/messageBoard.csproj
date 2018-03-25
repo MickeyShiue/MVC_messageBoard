@@ -152,6 +152,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GuestbookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,6 +163,7 @@
     <Compile Include="Models\Members.cs">
       <DependentUpon>MyGuestbook.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MembersMetadata.cs" />
     <Compile Include="Models\MyGuestbook.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -178,8 +180,11 @@
       <DependentUpon>MyGuestbook.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\GuestbookView.cs" />
+    <Compile Include="Models\ViewModel\MemberRegisterView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\GuestbooksDBService.cs" />
+    <Compile Include="Service\MailService.cs" />
+    <Compile Include="Service\MemberService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -239,6 +244,9 @@
     <Content Include="Views\Guestbook\CreateMessage.cshtml" />
     <Content Include="Views\Guestbook\EditMessage.cshtml" />
     <Content Include="Views\Guestbook\Reply.cshtml" />
+    <Content Include="Views\Member\Register.cshtml" />
+    <Content Include="Views\Member\RegisterResult.cshtml" />
+    <Content Include="Views\Member\EmailValidate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

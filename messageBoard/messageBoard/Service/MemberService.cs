@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using messageBoard.Models;
+using messageBoard.Models.ViewModel;
 
 namespace messageBoard.Service
 {
@@ -40,7 +41,7 @@ namespace messageBoard.Service
             }
             return result;
         }
-        
+
         public bool AccountCheck(string Account)
         {
             Members search = db.Members.Find(Account);
@@ -48,7 +49,7 @@ namespace messageBoard.Service
             return result;
         }
 
-        public string EmailVaildate(string UserName,string AuthCode)
+        public string EmailVaildate(string UserName, string AuthCode)
         {
             Members ValidDataMember = db.Members.Find(UserName);
             string ValidateStr = string.Empty;
@@ -57,7 +58,7 @@ namespace messageBoard.Service
             {
                 if (ValidDataMember.AuthCode == AuthCode)
                 {
-                    ValidDataMember.AuthCode = "";
+                    ValidDataMember.AuthCode = null;
                     db.SaveChanges();
                     ValidateStr = "帳號信箱驗證成功，現在可以登入了";
                 }
@@ -74,5 +75,67 @@ namespace messageBoard.Service
             return ValidateStr;
         }
 
+        public string LoginCheck(string Account, string Password)
+        {
+            Members LoginMember = db.Members.Find(Account);
+            if (LoginMember != null)
+            {
+                if (string.IsNullOrWhiteSpace(LoginMember.AuthCode))
+                {
+                    if (PasswordCheck(LoginMember, Password))
+                    {
+                        return "";
+                    }
+                    else
+                    {
+                        return "密碼輸入錯誤";
+                    }
+                }
+                else
+                {
+                    return "此帳號未經過Email驗證，請去收信";
+                }
+
+
+            }
+            else
+            {
+                return "無此會員，請註冊會員";
+            }
+        }
+
+        public bool PasswordCheck(Members checkmember, string Password)
+        {
+            bool result = checkmember.Password.Equals(HashPassword(Password));
+            return result;
+        }
+
+        public string GetRole(string UserName)
+        {
+            string Role = "User";
+
+            Members LoginMember = db.Members.Find(UserName);
+
+            if (LoginMember.IsAdmin)
+            {
+                Role += ",Admin";
+            }
+            return Role;
+        }
+
+        public string ChangePassword(string UserName, ChnagePasswrodView chnagePasswrodView)
+        {
+            Members LoginMember = db.Members.Find(UserName);
+            if (PasswordCheck(LoginMember, chnagePasswrodView.Password))
+            {
+                LoginMember.Password = HashPassword(chnagePasswrodView.NewPassword);
+                db.SaveChanges();
+                return "修改密碼成功";
+            }
+            else
+            {
+                return "修改密碼失敗";
+            }
+        }
     }
 }

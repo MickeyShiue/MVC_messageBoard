@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using messageBoard.Service;
 using messageBoard.Models.ViewModel;
+using System.Web.Security;
 
 namespace messageBoard.Controllers
 {
@@ -26,7 +27,6 @@ namespace messageBoard.Controllers
 
             return View();
         }
-
         
         public ActionResult Register(MemberRegisterView registerView)
         {
@@ -58,6 +58,67 @@ namespace messageBoard.Controllers
         public ActionResult EmailValidate(string UserName, string AuthCode)
         {
             ViewData["EmailValidate"] = memberService.EmailVaildate(UserName, AuthCode);
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Guestbook");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(MemberLoginView LoginMember)
+        {
+            string ValidStr = memberService.LoginCheck(LoginMember.UserName, LoginMember.Password);
+
+            if (string.IsNullOrEmpty(ValidStr))
+            {
+                string RoleData = memberService.GetRole(LoginMember.UserName);
+
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                    1,
+                    LoginMember.UserName,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    RoleData,
+                    FormsAuthentication.FormsCookiePath);
+
+                string enTicket = FormsAuthentication.Encrypt(ticket);
+                Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
+
+                return RedirectToAction("Index", "Guestbook");
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChnagePasswrodView changeData)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewData["ChangeState"] = memberService.ChangePassword(User.Identity.Name, changeData);
+            }
+
             return View();
         }
     }

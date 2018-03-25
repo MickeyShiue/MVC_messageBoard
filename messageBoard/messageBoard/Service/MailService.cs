@@ -11,9 +11,9 @@ namespace messageBoard.Service
     public class MailService
     {
 
-        private const string gmail_account = "MickeyShiueBlogs@gmail.com";
-        private const string gmail_password = "MickeyShiueBlogs123456789";
-        private const string gmail_mail = "MickeyShiueBlogs@gmail.com";
+        private const string gmail_account = "XXXXXXXXX";
+        private const string gmail_password = "XXXXXXXXXXX";
+        private const string gmail_mail = "XXXXXXXXXXXXXXXXX";
 
         public string GetVaildCode()
         {
